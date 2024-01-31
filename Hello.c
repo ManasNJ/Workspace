@@ -1,4 +1,4 @@
-#include<Stdio.h>
+#include<stdio.h>
 void main()
 {
     printf("My first git file\n");
