@@ -1,0 +1,7 @@
+
+#ignore executibles
+*.exe
+.vscode/launch.json
+.vscode/settings.json
+.vscode/tasks.json
+*Cpp_vect/a.exe
