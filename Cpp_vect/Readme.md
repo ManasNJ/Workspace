@@ -40,8 +40,21 @@ Please find below image for referring the file generation as per Compilation sta
 ###### C Structure v/s C++ Structure
 ![](Images\C_struct_vs_C++_struct.jpg)
 
+In a Class, by default all members are private , and can be accessed only by member functions.
 
-### File Revision History
+###### Access Specifiers in C++
+Accessibility to class's data members when access specifiers are made use of.
+![](Images\C++_AccessSpecifiers.jpg)
+
+###### Refer 40.cc in repo for "This Pointer" 
+To see the this ptr operation on a program/file you can use following commands with flags as mentioned:
+g++ filename.cpp -fdump -tree-gimple
+then a new file will be created by the name of 
+"filename.cpp.006t.gimple" 
+In this file you can see the operation of this ptr.
+
+
+### File Revision History 
 | Rev | Date | Name |
 | --- | --- | --- | 
 | 1.0 | 27-Feb-2024 | Manas |

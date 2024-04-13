@@ -1,0 +1,63 @@
+voidmain ()
+{
+  int D.55912;
+
+  {
+    struct cl c1;
+
+    try
+      {
+        cl::data_input (&c1);
+        cl::data_output (&c1);
+      }
+    finally
+      {
+        c1 = {CLOBBER(eol)};
+      }
+  }
+  D.55912 = 0;
+  return D.55912;
+}
+
+
+ cl::data_input (struct cl * const this)
+{
+  _1 = std::operator<< <std::char_traits<char> > (&cout, "Enter the input data for rollno & name: ");
+  std::basic_ostream<char>::operator<< (_1, endl);
+  _2 = &this->rollno;
+  _3 = std::basic_istream<char>::operator>> (&cin, _2);
+  _4 = &this->name;
+  std::operator>><char, std::char_traits<char> > (_3, _4);
+}
+
+
+__attribute__((access ("w1"), nonnull (2)))
+struct basic_istream & std::operator>><char, std::char_traits<char> > (struct basic_istream & __in, char * __s)
+{
+  struct basic_istream & D.55918;
+
+  {
+    streamsize __n;
+
+    __n = 9223372036854775807;
+    __n = __n;
+    std::__istream_extract (__in, __s, __n);
+  }
+  D.55918 = __in;
+  return D.55918;
+}
+
+
+ cl::data_output (struct cl * const this)
+{
+  _1 = std::operator<< <std::char_traits<char> > (&cout, "The Data Entered is : ");
+  std::basic_ostream<char>::operator<< (_1, endl);
+  _2 = this->rollno;
+  _3 = std::basic_ostream<char>::operator<< (&cout, _2);
+  _4 = std::operator<< <std::char_traits<char> > (_3, " ");
+  _5 = &this->name;
+  _6 = std::operator<< <std::char_traits<char> > (_4, _5);
+  std::basic_ostream<char>::operator<< (_6, endl);
+}
+
+
