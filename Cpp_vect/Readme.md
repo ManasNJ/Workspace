@@ -53,6 +53,11 @@ then a new file will be created by the name of
 "filename.cpp.006t.gimple" 
 In this file you can see the operation of this ptr.
 
+###### Friend Functions in C++
+Friend function is a non-member function that can access private/protected data of a class.
+
+###### Friend Class v/s Friend Function
+![](Images\FriendClass_vs_Function.jpg)
 
 ### File Revision History 
 | Rev | Date | Name |
