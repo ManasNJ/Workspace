@@ -116,6 +116,17 @@ Destructors are special member functions of a class which are invoked for destro
 3) Copy Constructor
 4) Assignment Operator Overloaded Function.
 
+**Constant Member Function**
+It is a member function where the data members are constant.
+
+**Static Data Member & Static Member Functions**
+*Refer Static_DataMembers_and_Static_MemberFunctions Module for codes on this topic* 
+![](Images\Static_Data_Member.jpg)
+![](Images\Static_Member.jpg)
+![](Images\Static_Member_Function.jpg)
+![](Images\Static_Member_Function_2.jpg)
+![](Images\Static_Member_Function_3.jpg)
+
 ### File Revision History 
 | Rev | Date | Name |
 | --- | --- | --- | 
