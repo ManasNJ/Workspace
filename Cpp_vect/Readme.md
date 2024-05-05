@@ -127,8 +127,33 @@ It is a member function where the data members are constant.
 ![](Images\Static_Member_Function_2.jpg)
 ![](Images\Static_Member_Function_3.jpg)
 
+###### Operator Overloading
+Operator Overloading works on predefined aswell as userdefined datatypes.
+![](Images\Operator_Overloading_1.jpg)
+![](Images\Operator_Overloading_2.jpg)
+![](Images\Operator_Overloading_5.jpg)
+![](Images\Operator_Overloading_6.jpg)
+![](Images\Operator_Overloading_7.jpg)
+![](Images\Operator_Overloading_8.jpg)
+**Syntax of writing Operator Overloaded Friend Function for extraction & insertion operator**
+![](Images\Operator_Overloading_9.jpg)
+![](Images\Operator_Overloading_10.jpg)
+![](Images\Operator_Overloading_11.jpg)
+
+The below mentioned operators already work on user-defined datatype. Basically Operator Overloading is done in case of those operators who can only work on predefined datatypes. So for them you overload the operators so that they can also
+work with userdefined datatypes.
+![](Images\Operator_Overloading_12.jpg)
+
+
+*For 80.cc refer below code*
+![](Images\Operator_Overloading_3.jpg)
+
+**Operator Overloading non-member friend function(Refer 82.cc)**
+![](Images\Operator_Overloading_4.jpg)
+
 ### File Revision History 
 | Rev | Date | Name |
 | --- | --- | --- | 
 | 1.0 | 27-Feb-2024 | Manas |
 | 2.0 | 07-Apr-2024 | Manas |
+| 3.0 | 05-May-2024 | Manas |
