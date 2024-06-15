@@ -151,6 +151,11 @@ work with userdefined datatypes.
 **Operator Overloading non-member friend function(Refer 82.cc)**
 ![](Images\Operator_Overloading_4.jpg)
 
+# Inheritance
+![](Images\Inheritance_1.jpg)
+![](Images\Inheritance_2.jpg)
+![](Images\Inheritance_3.jpg)
+
 ### File Revision History 
 | Rev | Date | Name |
 | --- | --- | --- | 

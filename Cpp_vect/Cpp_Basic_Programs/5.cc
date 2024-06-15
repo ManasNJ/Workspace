@@ -7,5 +7,5 @@ int main()
 {
     int a=100;
     std::cout<<"Local value of a: "<<a<<std::endl;      //a=100 is printed
-    std::cout<<"Global value of a: "<<::a<<std::endl;   //a=600 is printd
+    std::cout<<"Global value of a: "<<::a<<std::endl;   //a=600 is printed
 }
