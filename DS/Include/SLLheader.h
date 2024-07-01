@@ -13,4 +13,5 @@ struct SLL{
 
 /*Function Prototypes */
 void add_begin(struct SLL**);
-
+void add_end(struct SLL**);
+void PrintAllNodes(struct SLL*);

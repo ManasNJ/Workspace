@@ -5,7 +5,7 @@
 2) Size of Derived class depends on members of base class + Derived class members 
 3) All Base class members are inherited to derived class except private members
 4) Derived class members can access all base class members except private once (vice versa not possible )
-5) Derived class members can't directly access base class members but indirectly possible 
+5) Derived class members can't directly access base class's private members but indirectly possible 
 6) Default mode of inheritance is private ( Unless specified ).
 7) Eventhough the base class data members are private, they considered while creation of Memory layoutin Derived class.
     But Derived class members can't access them directly (Only possible Indirectly).

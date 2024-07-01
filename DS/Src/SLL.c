@@ -9,12 +9,14 @@ int main()
     while(1)
     {
         printf("Enter your choice \n");
-        printf("1)Add Begin  18)Exit \n");
+        printf("1)add_begin 2)add_end 3)PrintAllNodes 18)Exit \n");
 
         scanf("%d", &op);
         switch(op)
         {
             case 1: add_begin(&headptr); break;
+            case 2: add_end(&headptr); break;
+            case 3: PrintAllNodes(headptr); break;
             
             
             case 18: exit(0);
@@ -35,3 +37,38 @@ void add_begin(struct SLL **hptr)
     *hptr=newNode;          //but hptr should now hold newNode nodes address hence, *hptr= newNode.
 }
 
+void add_end(struct SLL** hptr)
+{
+    struct SLL *endNode = (struct SLL*)malloc(sizeof(struct SLL));
+    printf("Enter the rollno, name & marks: \n");
+    scanf("%d %s %f", &endNode->rollno, endNode->name, &endNode->marks);
+    endNode->next=0;
+    
+    if(*hptr)
+    {
+        while((*hptr)->next)
+        (*hptr) = (*hptr)->next;
+    
+        (*hptr)->next=endNode; //no initially hptr
+    }
+
+    else
+    *hptr=endNode;
+}
+
+void PrintAllNodes(struct SLL* hptr)
+{
+    if(hptr)
+    {
+        while(hptr)
+        {
+            printf("Roll No. = %d, Name = %s, Marks = %f\n", hptr->rollno, hptr->name, hptr->marks);
+            hptr=hptr->next;
+        }
+        printf("Printing of all nodes done \n\n");
+    }
+
+    else
+    printf("No Nodes present\n\n");
+
+}
