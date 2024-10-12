@@ -156,6 +156,16 @@ work with userdefined datatypes.
 ![](Images\Inheritance_2.jpg)
 ![](Images\Inheritance_3.jpg)
 
+# Types of Inheritance
+##### Multiple Inheritance
+![](Images\Multiple_Inherit.jpg)
+##### Hybrid Inheritance
+![](Images\Hybrid_Inherit.jpg)
+##### Hierarchial Inheritance
+![](Images\Heirarchial_Inherit.jpg)
+##### Multipath Inheritance
+![](Images\Multipath_OR_Diamond_Inherit.jpg)
+
 ### File Revision History 
 | Rev | Date | Name |
 | --- | --- | --- | 
