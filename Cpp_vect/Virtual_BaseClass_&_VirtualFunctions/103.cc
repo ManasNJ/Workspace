@@ -9,6 +9,18 @@ This way data will be direct passed from A to D. And a seperate memory/value won
 Previously after creation of d1 object , we were getting 2 a's, that is : a , b , a , c, d
 But now : a , b , c , d
 
+Refer virtual_class_1 image for understanding the memory allocation of variables in this code. When we add virtual keyword to Class  B and C while they are inheriting from A 
+A ptr called virtual ptr will be created for both B and C. What will happen in this case is that, When D is inherited from B & C , it won't receive two seperate 'a' variables 
+from B & C. Instead it will directly receive only one copy of 'a' from class A.
+
+Hence , size of class A = sizeof variable a = 4 Bytes
+        size of class B = b + virtual ptr of b + a (a will be considered for Class B's size, as B is derived from Class A ) = 4 + 8 + 4 = 16
+        size of class C = c + virtual ptr of c + a (a will be considered for Class C's size, as C is derived from Class A ) = 4 + 8 + 4 = 16 
+        size of Class D = b + virtual ptr of b + c + virtual ptr of c + d = 28
+
+        Therefore total size of class D = a (4bytes) + holes (4bytes, due to structure padding) + Vptr_b (8 bytes) + b (4 bytes) + holes (4 bytes)
+                                          + Vptr_c (8 bytes) + c (4 bytes) + d (4 bytes)
+                                        = 40 Bytes             
 */
 #include <iostream>
 using namespace std;
@@ -101,4 +113,9 @@ int main()
 {
     D d1(100, 200, 300, 400, 500);
     d1.get_data();
+
+    cout << "size A - " << sizeof(A) << endl;
+    cout << "size B - " << sizeof(B) << endl;
+    cout << "size C - " << sizeof(C) << endl;
+    cout << "size D - " << sizeof(D) << endl;
 }

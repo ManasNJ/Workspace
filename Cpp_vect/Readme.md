@@ -166,6 +166,22 @@ work with userdefined datatypes.
 ##### Multipath Inheritance
 ![](Images\Multipath_OR_Diamond_Inherit.jpg)
 
+
+##### Virtual Base Class
+![](Images\Virtual_Baseclass.jpg)
+Virtual Classes are used for avoiding duplication of data
+##### Inheritance using virtual base class
+Using "Virtual" keyword while inheritance of classes
+![](Images\Virtual_class_1.jpg)
+##### Using virtual keyword only for one of the Inherited branch
+For code, refer 104.cc in Virtual classes folder
+
+1) Branch C has virtual keyword
+![](Images\Virtual_class_2.jpg)
+
+2. Branch B has virtual keyword
+![](Images\Virtual_class_3.jpg)
+
 ### File Revision History 
 | Rev | Date | Name |
 | --- | --- | --- | 
