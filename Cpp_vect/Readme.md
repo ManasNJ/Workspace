@@ -167,7 +167,7 @@ work with userdefined datatypes.
 ![](Images\Multipath_OR_Diamond_Inherit.jpg)
 
 
-##### Virtual Base Class
+### Virtual Base Class
 ![](Images\Virtual_Baseclass.jpg)
 Virtual Classes are used for avoiding duplication of data
 ##### Inheritance using virtual base class
@@ -181,6 +181,18 @@ For code, refer 104.cc in Virtual classes folder
 
 2. Branch B has virtual keyword
 ![](Images\Virtual_class_3.jpg)
+
+### Virtual Function
+![](Images\Virtual_Func_1.jpg)
+![](Images\Virtual_Func_2.jpg)
+
+### Virtual Table
+![](Images\Virtual_Table_1.jpg)
+Points to remember w.r.t Virtual Function and Virtual Table.
+![](Images\Virtual_Table_2.jpg)
+Lookup table contains all normal apis and all other elements/variable entries
+Whereas In Lookup table only virtual functions and virtual variables/Ptrs entries are available.
+![](Images\Virtual_Table_3.jpg)
 
 ### File Revision History 
 | Rev | Date | Name |
