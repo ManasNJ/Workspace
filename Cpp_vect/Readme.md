@@ -194,6 +194,36 @@ Lookup table contains all normal apis and all other elements/variable entries
 Whereas In Lookup table only virtual functions and virtual variables/Ptrs entries are available.
 ![](Images\Virtual_Table_3.jpg)
 
+### Rules of Virtual Functions
+![](Images\Rules_of_VirtualFunctions.jpg) 
+All Virtual Functions are Non_Static.
+![](Images\Virtual_Func_are_nonStatic.jpg)
+Virtual Constructors are not possible. Because constructors are created before Object creation whereas
+Virtual functions are created after object creation.
+![](Images\Virtual_Constructors.jpg)
+![](Images\Virtual_Constructors_2.jpg)
+![](Images\Virtual_Constructors_3.jpg)
+
+### Virtual Destructors 
+Virtual Destructor is a destructor defined in base class to get proper order of Destructor calls from Derived 
+Class to the Base class, when the base class pointer points to derived class dynamic object.
+
+Virtual Destructors make sure that Object resources are released in reverse order of object being constructed with respect to constructed object.
+
+#### Why Base class pointer can point to derived class object but reverse not possible (Derived class pointer points to base object) ?
+Derived class is implemented from  base class , so base class pointer can point to derived class object address.
+Reverse is not possible because base class not implemented from derived class (no inheritance available from derived to base)
+
+### Pure Virtual Function
+A virtual function that is declared but not defined in a base class is referred to as a pure virtual function.
+That means in the Base class , the function will be declared and assigned to zero. Such class which is having a function declared
+and assigned zero is called Abstract Class. And definition to that function is provided in the Derived Class.
+If a class contains atleast one pure virtual function , it is called as abstract class.
+If a there is a pure virtual function , then its definition must be present in each derived class else compilation will be unsuccessful.
+
+Note : A class with pure virtual function can't create object of its own.
+
+
 ### File Revision History 
 | Rev | Date | Name |
 | --- | --- | --- | 
