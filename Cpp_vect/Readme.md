@@ -223,9 +223,71 @@ If a there is a pure virtual function , then its definition must be present in e
 
 Note : A class with pure virtual function can't create object of its own.
 
+## Exception Handling
+
+Exception Handling is used for handling exceptions that appear at runtime.
+Based on mechanism that uses just 3 keywords :
+ **Try** **Throw** **Catch**
+
+ Basically there will be three blocks : try, catch & throw
+
+ **try** : Try block will be trying some code snippet programmed by you.
+ {
+    In the process of Try block if some exception occurs, immediately it will throw it. this exception will be caught by Catch block.
+    (What it will throw ? -> Even that will be programmed by you)
+-->  **throw** Exception_Ocurred <--
+ }
+
+"Catch" block should compulsorily be immediately after the try block, just like there is "else" condition right after "if".
+**catch**{
+
+    --> Will catch the exception thrown and process it as programmed by you. <--
+
+ }
+
+**In case of multiple catch blocks, all Catch Blocks are always executed sequentially from beginning. Hence always right default catch block at the end of all blocks.** 
+
+When there is no valid catch block for throw statement then terminate () will be called.
+
+**terminate()** is a library function. It will call automatically whenever an unhandled exception is raised. 
+This terminate function will also call abort function internally , which will forcefully abort the program.
+For Example refer 112.cc
+
+Check 114.cc for Default catch block.
+Check 118.cc for  rethrow exception.
+
+**STACK UNWINDING** 
+The process of removing function entries from the function call stack at runtime is called stack unwinding.
+That means , if you have main function , in which u have try block. Try block has Func1() call , Func1 has Func2() call internally.
+In Func2() if there is throw block, then it will directly come to main function back and destroy/terminate the Func1 & Func2 stack frames.This is called STACK UNWINDING.
+This process is different from regular function calls. In regular function calls, after every function execution , at the return point the stack frame of function is destroyed.
+Generally stack winding is used only in Exception Handling.
+
+## Function Templates
+Function Templates are generic function prototypes used for multiple functions with same functionality.
+Function Templatesare special functions that operate with generic types. This allows us to create a function template whose functionality can be adapted to more than once type or class without repeating entire code for each type. 
+Overloading of function templates is possible.
+
+## Class Templates
+Class template provides specification for generating classes based on parameters.
+
+Syntax:
+
+template<class Type>
+Class classname
+{
+    Type t;
+    Type t1;
+}
+
+![](Images\Class_Template_1.jpg)
+
+## Object Slicing
+Whenever a derived class object data member is created and assigned to base class object data member. Some of the attributes of derived class data member will be lost. This is called object slicing.
+
 
 ### File Revision History 
-| Rev | Date | Name |
+| Rev | Date | Name | 
 | --- | --- | --- | 
 | 1.0 | 27-Feb-2024 | Manas |
 | 2.0 | 07-Apr-2024 | Manas |
