@@ -285,6 +285,36 @@ Class classname
 ## Object Slicing
 Whenever a derived class object data member is created and assigned to base class object data member. Some of the attributes of derived class data member will be lost. This is called object slicing.
 
+### Files in C++
+As per Cpp basics, we know that iostream class is derived from istream and ostream classes.
+Similarly, in files we take input data from files using ifstream/ofstream class. This class is derived from istream class.
+Apart from these 2, there is another class called fstream class. 
+fstream is derived from iostream class. fstream can deal with both input and output at a time.
+
+ex: 
+    Usage :-
+
+    ifstream fin;   //fin is the object name. you can give any name to the object.
+    fin >> x;       // This instruction states that extract the input from file available in hard disk. and feed it to 'x'.
+
+    ofstream fout ;  
+    fout << x;  //This statement says, insert the output from 'x' to file in hard disk. 
+
+    fstream fio ;
+    fio >> x;
+    fio << x;
+
+    Files Operations & opening file in different modes ( Compared to C handling ) :
+    ![](Images\Files_1.jpg)
+
+    For combining any two files commands you have to surely use bitwise OR.
+    If we are using only ios:out then data will be truncated by default.
+    But if combining ios:in and ios:out , that is ios:in|ios:out (or ios:app) then data won't truncate by default . 
+    You need to explicity truncate data by command ios:trunc.
+
+    Functions to handle File ptr:
+    ![](Images\Files_2.jpg)
+    ![](Images\Files_3.jpg) 
 
 ### File Revision History 
 | Rev | Date | Name | 
