@@ -316,6 +316,18 @@ ex:
     ![](Images\Files_2.jpg)
     ![](Images\Files_3.jpg) 
 
+## Type Conversion Function Syntax 
+![](Images\Type_Conversion_1.jpg)
+Type Conversion function should be a member function.
+It will not take any arguments.
+This function is not having any return type but must return a  value.
+Type conversion function syntax is mentioned in above image.
+
+Types of Type Conversions :
+1) Basic type to Class type Conversion
+2) Class type to Basic type Conversion
+3) Class to Class Conversion
+
 ### File Revision History 
 | Rev | Date | Name | 
 | --- | --- | --- | 
