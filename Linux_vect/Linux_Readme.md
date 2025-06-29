@@ -41,7 +41,7 @@ Using command:
 1) cc filename.c -o "executible_filename"  --> This command generates an executible file with the name we have provided. 
 In this case default linker links with dynamic C library.
 
-2) cc -static filname.c -o "executible_filename" --> Static Linking
+2) cc -static filname.c -o "executible_filename" --> Static  Linking
 
 3) size filename  --> Tells different memory size occupied by file (Data/Code/Bss)
 
@@ -49,3 +49,19 @@ In this case default linker links with dynamic C library.
 
 5) nm filename > temp    --> This is called output redirection. Output of file will be stored in temp.
 By opening temp file we can see which all function definitions have been linked with our main file.
+
+6) gcc -c filename.c -o filename.o   --> '-c' means you are asking compiler to stop compilation after assembler.  
+    filename.o is an object file which will be created using above command. In above command,'-o filename.o' is optional.
+
+7) ar -rcsv libabc.a sum.o mul.o print.o   --> libabc.a is the name of the static  library you want to create , in which you will be putting the 3 .o files.
+   
+   meaning of command : archive file creation ( That is static library) 
+                        r c s v ,
+                        r = replace objects in already present library with the new once provided in command line.
+                        c = do not warn if library is newly created
+                        s = tells ar to create a symbol table, gcc needs this table when we are using the library
+                        v = verbose mode , tells ar to keep you informed about what it's doing.
+
+8) ar -t libabc.a     --> Displays what al object files were used into creation of library
+
+9) ar -r libabc.a sum.o  --> If you want to replace sum.o object file in the library libabc.a
