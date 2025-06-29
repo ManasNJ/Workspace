@@ -14,7 +14,7 @@ Compilation stages :
 Library is a place where all function definitions are kept together, in form of object file. It is an already compiled code which can be used by anyone without exposing the actual source code nehind the library.
 Library linking part comes at the Linker stage.
 
-Types of Library : 
+##### Types of Library : 
 1) Static Library - helps Static Linking (It is also called as archive file, .a file) ex: libc.a, libm.a 
 2) Dynamic Library - helps in Dynamic Load time & Dynamic Runtime Linking (Also called shared object .so or dll file) ex: libc.so , libm.so
 
@@ -23,7 +23,20 @@ If Linker is linking with dynamic library , it will not copy the function defini
 
 Hence size of executible file is more in static library compared to dynamic.
 
-Importants commands (Most of these commands will only owrk in Linux based system) :
+##### Default Linking :
+If you compile a program using this command ->  cc filename.c 
+By default linker links with 3 libraries. Two of them are OS related libraries, third one is libc.so
+libc.so contains all   predefined function definitions like printf , scanf , etc.
+
+##### Creating Library
+Remember that while creating Libraries , you should not add main function definition inside the library.
+Main function definition is only supposed to be in the source code file.
+To create the library , we need to create .o files from .c files.
+Using command:
+    gcc -c filename.c -o filename.o
+
+
+## Importants commands (Most of these commands will only work in Linux based systems) :
 
 1) cc filename.c -o "executible_filename"  --> This command generates an executible file with the name we have provided. 
 In this case default linker links with dynamic C library.
