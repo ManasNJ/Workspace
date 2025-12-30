@@ -65,3 +65,9 @@ By opening temp file we can see which all function definitions have been linked 
 8) ar -t libabc.a     --> Displays what al object files were used into creation of library
 
 9) ar -r libabc.a sum.o  --> If you want to replace sum.o object file in the library libabc.a
+
+10) cc -c -fpic filename.c  --> Command to create .o file for dynamic library. (fpic stands for         "position independent code")
+
+11) Command to create a dynamic Library out of the .o files  mentioned above.
+    -->    cc  -shared  -o  libmno.so  sum.o  mul.o  print.o
+    Therefore , libmno.so is a dynamic library made out of sum mul and print.o
