@@ -19,13 +19,21 @@ void main()
 
         for(int j=0; j< 10-i-1; j++)
         {
-            if(arr[i]>arr[j])
+            if(arr[j]>arr[j+1])
             {
-                arr[i]^=arr[j]^=arr[i]^=arr[j];
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
                 f=1;
             }      
         }
-
-        if(0==)
+        
+        if(f==0)
+            break;
     }
+    
+    printf("\n\nSorted array: \n");
+    for(int i=0; i<10; i++)
+    printf("%d ", arr[i]);
+    printf("\n");
 }

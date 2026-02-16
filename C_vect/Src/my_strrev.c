@@ -10,10 +10,11 @@ int main()
 
     for(int j=0; j<i; j++, i-- )
     {
-        char ch;
-        ch=str[j];
-        str[j] = str[i-1];
-        str[i-1] = ch;
+        if(str[j] != str[i-1]){
+            char ch=str[j];
+            str[j] = str[i-1];
+            str[i-1] = ch;
+        }
     }
 
     printf("%s",str);
