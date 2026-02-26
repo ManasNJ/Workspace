@@ -285,7 +285,7 @@ If you want to kill the process without bringing it into foreground, you can use
 
  ### Process and Process Management
 
-Run program has process ID of 1.
+Init program has process ID of 1.
 
  Bash is a Shell. Shell is a command interpreter.
  Shell is a program used to interact with OS.
@@ -356,3 +356,53 @@ This is a compiler supported function which is used to execute a shell command.
 Prototype :-
                int system (const char *command);
 You can use this function to give command line level instructions through .c code. Such as- ls, ps, etc.
+
+![SystemCallUsage](Images/ProcessManagement_1.jpg) 
+
+System call can also be called a blocking function. If in a code there are 3 system calls in a line, then until and unless the first system call completes, the second won't start and same goes for the third. This is because system calls execute sequentially and nit concurrently.
+
+## You can see prototypes of all functions by typing "man functionname" in linux based system or in google chrome.
+
+#### FORK(2)
+FORK is a system call. It creates a new/child process by duplicating the calling process/Parent process.
+Necessary header files to include for FORK call in Linux, 
+#include <unistd.h>
+#include <sys/types.h>
+
+After fork whatever statements are written in program, those will be executed by parent aswell as child.
+Very important point is that, parent and child will execute concurrently.
+After fork call, total code/stack/heap/data section of the parent process is duplicated and given to child, basically whole program gets duplicated, even the PCB.
+But execution in child process initiates only from the point where the fork call was made in parent process.
+You can check man page of fork for more knowledge.
+
+Important point to remember : Scheduler or process manager's process  ID is 0.
+
+### Orphan and Zombie process
+Concepts of Orphan and Zombie process are related to child process. Lifetimes of Parent and child process may
+or may not be the same. 
+
+Orphan process : If parent process execution completed before the child. Then the child process is called Orphan process.
+For any Orphan process , init process is the parent.
+
+Zombie Process : If child execution completes , but parent process is still executing, then the child becomes zombie.
+Zombie is a dead process which has no instruction left to execute and is left in defunctional state.
+![ZombieProcess](Images/Zombie_process.jpg) 
+
+Zombie processes are created so that parent can get the exit status of child. Once that exit status is collected by parent during its execution, PCB kills the zombie.
+But zombie is harmful to RAM as it occupies RAM space even if not executing. So it needs to be handled wisely.
+
+If parent wants to collect the exit status, parent must use wait() or waitpid().
+
+Child sends exit status to parent at the end of program or at the program termination, using the command exit() or _exit().
+EXIT_SUCCESS and EXIT_FAILURE are the macros that can be used to send the exit status through exit().
+EXIT_SUCCESS is 0.
+EXIT_FAILURE is 1.
+Refer below image for normal and abnormal termination types.
+![TypesofTermination](Images/Exitand_exit_Terminations.jpg)
+![TypesofTermination2](Images/NormalandAbnormalTemrination.jpg)
+
+Using atexit() and onexit() functions we can register the functions that are be called in the reverse order of their registration sequence.
+
+#### Wait Function call
+![Wait Function call](Images/wait_function_Call.jpg)
+
