@@ -394,6 +394,11 @@ But zombie is harmful to RAM as it occupies RAM space even if not executing. So 
 If parent wants to collect the exit status, parent must use wait() or waitpid().
 
 Child sends exit status to parent at the end of program or at the program termination, using the command exit() or _exit().
+exit(0) - normal successful termination.
+exit(1) - normal failure termination.
+_exit(0) - normal successful immediate termination.
+exit(0) - normal failure immediate termination.
+
 EXIT_SUCCESS and EXIT_FAILURE are the macros that can be used to send the exit status through exit().
 EXIT_SUCCESS is 0.
 EXIT_FAILURE is 1.
@@ -401,8 +406,89 @@ Refer below image for normal and abnormal termination types.
 ![TypesofTermination](Images/Exitand_exit_Terminations.jpg)
 ![TypesofTermination2](Images/NormalandAbnormalTemrination.jpg)
 
+### Shading some light on significance of the integer variable "S" created in wait_1.c program.
+- In case of normal termination, the second byte of the variable will store the exit status.
+- whereas in case of abnormal termination, first byte will store the signal value of that abnormal termination.
+For more details, refer below image
+![Termination_1](Images/Termination_1.jpg)
+2
 Using atexit() and onexit() functions we can register the functions that are be called in the reverse order of their registration sequence.
 
 #### Wait Function call
+Wait is a blocking function. It haults parent execution until child completes.
 ![Wait Function call](Images/wait_function_Call.jpg)
+
+Some important macros :
+
+Below macro gives you more information on reason behind process termination and if the child process was terminated normally or forcefully/abnormally.
+
+- WIFEXITED(wstatus)
+WIFEXITED is an argument based macro which takes wstatus as argument.
+This macro returns TRUE if the child process terminated normally, by calling exit(3) or  _exit(2) , or by returning from the main().
+
+You can get more info on above macros in the MAN page.
+Refer wait_2.c program of this repo for the same.
+
+##### waitpid() function 
+ We need to pass three arguments to the waitpid function.
+ prototype : pid_t waitpid(pid, *wstatus,  options).
+ wait() that we discussed before , is used to terminate any one of the child.
+
+ Using waitpid() , we can pass specific child process id as argument to the waitpid function call.
+ The child process id can be achieved from fork(). Fork() returns child process id.
+ example usage :
+ waitpid(y+2, &s, 0) ->    parent is waiting for y+2 process to terminate and collect the status.
+ waitpid(y+3, &s, 0) ->    parent is waiting for y+3 to terminate and not interested to collect the status.
+waitpid(-1, &s, 0) -> If you use first argument as -1, then it will behave as regular wait() function call. That means it will accept any first process ID that completes.
+ - Third argument of waitpid()
+ Third argument is the options argument.
+ Third argument is passed through some application specific bit masking macros.
+ 
+ ![Wait_PID_macro](Images/waitpid_macro_1.jpg)
+
+
+ ![Wait_PID_macro](Images/WaitPID_ThirdARG_Macros.jpg)
+
+
+### Exec_Family_Of_Functions
+Exec family of functions are utilised to replace current process image with new process image.
+for example, when we use system("ls") call in the program, it acts like a blocking function, wherein it creates a concurrent shell process and in that it will run ls command. so new process ID is created apart from parent process where the system call was made.
+Whereas in case if the exec function is used instead of system function call, the new process id image is directly pasted on the ongoing process, so in that case whatever lines are present in the parent code after exec function call will be lost and will be replaced by exec process id code. 
+Whereas in case of system function call, code present after system call will also execute.
+so exec calls benefit is that creation of new process id is avoided but some code of parent process might get overwritten.
+![Exec_Functions_1](Images/Exec_Functions_1.jpg)
+Functions mentioned in above image are variable list argument functions. There are two ways in which you can indicate to the compiler that the arguments being passed to the variable argument list function are completed.
+1) Paasing NULL at the end. exaample : execl(arg1, arg2, arg3, ... , NULL);
+2) Passing a fixed argument that depicts  number of variable  arguments being sent.
+
+prototype of execl :
+
+execl ("Provide path including name of Executible", "name of the command", "supplying any options for executing the command", "NULL" )
+
+1 - usage example : execl ("bin/ls", "ls", "-l", NULL);
+
+2 - another usage example of execlp : execlp("filename.c", "ls", "-l", NULL);
+
+Ideally, when the 2nd function is used where the "execlp" function tries accessing the filename.
+That file can  be accessed either via the path provided in the function argument. If there is no path provided in the function arguments, then the program searches through all the paths provided in the  environemnt variables / Shell variables , to see if the file mentioned in the function arguments is found on any of those paths. 
+
+echo is a shell scripting related keyword that prints data on screen (similar to printf/cout )
+$ tells us content at that variable.
+PATH is a shell variable which stores certain paths specified by user for Environment variable/Shell variable. 
+Therefore , echo $PATH -> prints data stored in variable PATH.
+
+So whenever you supply a command in bash without specific path, bash will go through all the paths provided in PATH variable.
+
+If you simple type ENV , you will get all environment variable keywords.
+
+So if you are not sure about path, use execlp, if know that path, use execl.
+If you use execl and provide wrong path , then execl won't execute and original program/process ID will run as it is. New process ID won't get created and so the new process ID won't overwrite on the ongoing process and the line that was present of execl will run as it is. 
+
+Using fork and system call , we had created 6 processes 2 commands. 
+using fork and execl apis, we can do that same work in 2 processes 2 commands. (Vector Lec 19 last 20 mins). 
+Hence , execl with fork helps reduce processor burden in concurrent processing (unlike fork with system).
+
+One interesting bash trick to execute multiple commands : 
+ls;cal;pwd  -> executes all three commands. 
+processor does it by creating three child processes and same execl apis.
 
