@@ -492,3 +492,45 @@ One interesting bash trick to execute multiple commands :
 ls;cal;pwd  -> executes all three commands. 
 processor does it by creating three child processes and same execl apis.
 
+
+
+
+
+// Lec-26 onwards ( Lost some data in between in the office laptop) // Somewhere around Lec15 - Lec25 notes and codes were lost in office laptop //
+
+Signal Handling Continued --> 
+
+Signal function disadvantages and Signal function retun type discussed in last lectures. 
+
+1) SIGNAL function
+Signal function - signal() , returns the old action and is used to set a new action.
+You can go through MAN page of signal function to understand its prototype and operation.
+
+Disadvantage of Signal Function :
+1) Without setting new action, we can't know the status of old action.
+2) When process is executing ISR, because of some signal, at that time another signal comes, signal manager is immediately delivering other signal to the process even though previous action is not completed. 
+
+TO overcome these disadvantages we can use SIGACTION() in the place of  SIGNAL()
+Just like using WAITPID() instead of WAIT()
+
+2) SIGACTION function
+
+prototype : 
+
+int sigaction(int sig, const struct sigaction *act, struct sigaction *oldact);
+
+returns 0 on success , or -1 on error.
+
+We pass three arguments to sigaction(), first argunent is signal number, second and third arguments are address of a structure variable.
+Name os structure is also sigaction structure.
+
+Sigaction can be called in three different ways :
+a) sigaction(signum, &v, 0); // setting new action but not collecting the old one
+
+b) sigaction(signum, 0 , &v1); // collecting old action but not setting new
+
+c) sigaction(signum, &v , &v1); // setting new action and collecting old action.
+
+- Based on operation of child process, parent process is notified by a SIGCHILD Signal, if the child process terminates, stops or resumes.
+- In sigaction() there is a flag member under sigaction structure that you can update with specific flags provided as per function prototype to tamper the behaviour of SIGCHILD received by parent from child.
+Refer program "sigaction_2.c".
