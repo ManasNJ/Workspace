@@ -264,6 +264,8 @@ After running this command , you will observe 2 numbers printed on screen. First
 
 "ls" command tells us number of files present in the directory.
 
+"ls -l" Long list
+
 "ps" command lists the processes running in current terminal.
 
 "ps -e" list of processes in system.
@@ -526,11 +528,192 @@ Name os structure is also sigaction structure.
 
 Sigaction can be called in three different ways :
 a) sigaction(signum, &v, 0); // setting new action but not collecting the old one
+-> As per the method of usage of sigaction, we first create the sigaction variable in the code and then fill the structure members by ourselves, for its further usage.
 
 b) sigaction(signum, 0 , &v1); // collecting old action but not setting new
+-> Here we create the sigaction structure variable, but the members will be filled by Signal Manager.
 
 c) sigaction(signum, &v , &v1); // setting new action and collecting old action.
 
 - Based on operation of child process, parent process is notified by a SIGCHILD Signal, if the child process terminates, stops or resumes.
 - In sigaction() there is a flag member under sigaction structure that you can update with specific flags provided as per function prototype to tamper the behaviour of SIGCHILD received by parent from child.
 Refer program "sigaction_2.c".
+
+Signals SIGKILL (Signal no. 9) & SIGSTOP(Signal no. 19) cannot be caught, blocked, or ignored. Hence, they cannot be handlet through a userdefined ISR. If you try to do so, then the sigaction() function will return -1 and set errno to EINVAL.
+
+##### SA_Mask
+There is another member of or sigaction structure, called as SA_MASK.
+When process is executing ISR, at that time if another signal comes, should it deliver or not is decided by signal manager by looking at sa_mask variable.
+
+sigemptyset(&v.sa_mask) -> it allows other signals when our process is executing ISR because of one signal;
+
+sigfillset(&v.sa_mask) -> block other signals when ISR is executing.
+
+sigaddset(&v.sa_mask, 3) -> allow all other signals except 3.
+
+## Process Resource Management
+Each process consumes system resources such as memory and CPU time.
+Each process has a  set of resource limit for the amount of resources it can consume.
+1) Soft Limit -> When the process is created, this limit is assigned by Resource Manager.
+2) Hard Limit -> The limit upto which a process can request resources to Resource Manager.
+
+Command to list the resources :
+ulimit -a
+![ResourceLimits_Command](Images/Resource_Limits.jpg)
+
+This will show you all names of the resources witht the size allotted for each.
+
+ulimit -d (data segment size command)
+ulimit -s (stack section size command)
+
+To get/set the limit of resources via program :
+1) getrlimit()
+2) setrlimit()
+
+Function prototypes : 
+(Refer MAN page for more details)
+
+#include <sys/time.h>
+#include <sys/resource.h>
+
+int getrlimit(int resource, struct rlimit *rlim); 
+int setrlimit(int resource, const struct rlimit *rlim); 
+
+struct rlimit{
+    rlim_t rlim_cur;   /* SOFT Limit */
+    rlim_t rlim_max;   /* HARD Limit (Ceiling for rlim_cur) */
+}
+
+All the limit for each process are represented through macros. For example,
+data segment size
+Heap size
+No of files
+
+For some of these, if you try creating process beyond the limit, FORK() will fail.
+
+A process receives SIGXFSZ signal, when a process writes data in a file beyond that (RLIMIT_FSIZE) limit.
+
+##### Core Dump File
+Core File, Resource name: RLIMIT_CORE 
+Th default action of certain signals is to cause a process to terminate and produce a core dump file, a disk file containing an image of the process's memory at the time of termination. This image can be used in a debugger to inspect the state of program .
+In our list of signals , there are certain signals which have tendency to create core dump file.
+While some signals have the tendency to just terminate without creating core dump.
+
+![CoreDumping_Signals](Images/CoreDump_1.jpg.png) 
+
+
+### Whenever you download Operating System, which memory does it resides in ?
+
+On downloading an OS , it first gets downloaded and resides in harddisk.
+The disk space where we install Linux OS is divided into 4 blocks. 
+
+1) Boot Block - Contains Booting related information.
+
+2) Super Block - Contains file system information , eg - ntfs, FAT16, EXT2, EXT3, etc
+                File systems means the rules and regulation that file manager needs to follow while creating files.
+                NTFS is the windows supported  file system.
+                Linux  supports ext2/ext3/ext4 file systems.
+
+3) i-node Block - Contains file information. Just like PCB for every process, similarly whenever a file is created, an I-node table is created containing data on the file.
+
+4) Data Block - When we create a file and store some info in it, that file gets stored in Data block. Therefore, Data  block stores contents of the file.
+
+##### Total 7 different types of  file in Linux environment:
+
+1) Regular file - most common file type in linux. Governs all different files such as text files, images, binary files, executable, etc. 
+eg: .cpp, .doc , a.out .
+
+2) Directory file - files created using mkdir command.
+
+3) Character special file  &  Block special files are called as Device Drivers files.
+
+4) Socket file : Used to transfer data through internet, used in TCP/IP programming.
+
+5) Pipe file : Used in IPC mechanism
+
+6) Link file
+
+After entering ls -l  command 
+-rw-r--r-- 1 guru guru 137 Sep 21 07:12 header.h
+
+As per the format , first letter gives type of file  
+ As per first character of ls -l output , following are the categorizations of the file types 
+
+   First character      File type 
+1)  -                   Regular file
+2) d                    Directory file
+3)  c                    Character special
+4)  s                    Socket file
+5)  l                    Link file
+6)  b                    Block special file
+7)  p                    Pipe file
+
+Based on "ls -l" command entered in bash, we get following output : 
+-rw-r--r-- 1 guru guru 137 Sep 21 07:12 header.h
+
+In above line, rw , r , r respectively are the three levels of security as mentioned below.
+For User, Group member and others.
+rw - read write permission
+r - only read
+r - only read
+
+if , x - execute
+
+#### 3 possible levels of security in Linux
+1 ) User -> Read/write/execute
+2 ) Group members -> Read/write/execute
+3 ) Others -> Read/write/execute
+
+When you create a new file, file manager assigns permission on the basis of UMASK value.
+
+![SecurityInLinux](Images/Security_in_Linux.jpeg)
+As per above image , Security permission is 644 for the file header.h
+
+To change the security mode/file access pemission, we can use CHMOD command.
+ex: chmod 0600 data_file
+-> After executing above command, for data_file, user will be having read, write permission,
+and group members and others won't be having any of the permissions.
+
+In the command, chmod 0600 data_file     --> ("data_file" is the filename)
+first '0' means it is an octal representation.  
+
+Remember that, data_file is not an executible file. It is just a text based file.
+Every executible file should mandatorily have an execute permission.
+   
+chmod command can also be used in a different way, 
+chmod g+r data   --> This will give read permission to group , here 'g' means group, 'r' means read permission, '+' will give the permission, '-' will take back the permission.
+
+![Command_to_Check_SecurityLevel_Of_Files](Images/Security_In_Linux_2.jpeg)
+
+Stat system call is used to get information about a file.
+![STAT_SystemCall](Images/STAT_1.jpg)
+![Stat_Structure_Members](Images/Stat_Structure_Members.jpg)
+
+In interview if they ask, how do you get information of a file, you can just say using stat() function.
+
+st_mode member of stat structure tells us about file type.
+![Stat_St_mod_Member](Images/Stat_st_mod.jpg)
+Permissions are given in octal representation. So we have to print st_mod in octal form.
+
+#### File Links
+When we create two files, we know the files by filnames but the File manager recognises them through Inode number.
+If we create a file "abc", write some data into it and then create another file "def", -> cp abc def -> this command will copy data from abc to def.
+Later if we make any change in abc, that won't reflect  in def. If we want the change to be reflected in def , we can create linking between the two files.
+
+Lets say there is file1 , opened in read mode with some data, 
+and file3 , opened in write mode where we are supposed to copy data from abc.
+These 2 files can be linked to each other through:
+1) Hard Links
+2)  Soft links
+
+
+###### Hard Link
+usually we use "cp" command to create file, but "ln" command can also work for creating a file and copying data from one file to other.
+
+The command you can use is -> "ln abc def"
+Now, abc & def will be pointing towards same memory location. 
+Deleting abc will still keep the data safe and accessibe through def. 
+And updating abc will also update the data for def.
+
+###### Soft Link
+

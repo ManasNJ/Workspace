@@ -1,0 +1,47 @@
+#include <stdio.h>
+int main(){
+	
+	char s[10]; 
+	car del = 'a';
+	int l;
+	
+	printf("Enter a string: \n");
+	gets(s);
+	
+	for( l=0; s[l]; l++);
+	
+	for(int i=0; i<l ; i++){
+	
+		if(del == s[i]){
+			for(int j=i; j<l; j++)
+			s[j] = s[j+1];
+			
+			l--;
+	}		
+
+	printf("After deletion, string is : \n");
+	puts(s);		
+	
+	return 0;
+}
+
+
+
+
+/*
+#include <stdio.h>
+int main(){
+	
+	char s[10]; 
+	int l;
+	
+	printf("Enter a string: \n");
+	gets(s);
+	
+	for( l=0; s[l]; l++);
+	
+	 
+	
+	return 0;
+}
+*/
